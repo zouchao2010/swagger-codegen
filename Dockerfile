@@ -8,6 +8,7 @@ ADD . /opt/swagger-codegen
 
 RUN cd /opt/swagger-codegen && mvn package
 
-ENTRYPOINT ["java", "-jar", "/opt/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar"]
+#ENTRYPOINT ["java", "-jar", "/opt/swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar"]
 
-CMD ["help"]
+#CMD ["help"]
+CMD ["/bin/bash"]
