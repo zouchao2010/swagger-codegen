@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+
+from tornado import web, gen
+from framework.handler import get, post, put, delete
+
+class {{classname}}Handler(object):
+
+{{#operations}}
+{{#operation}}
+    @gen.coroutine
+    @{{httpMethod}}(_path="{{path}}", _types=[{{#allParams}}{{dataType}}, {{/allParams}}])
+    def {{nickname}}(self{{#allParams}}, {{paramName}}{{/allParams}}):
+        pass
+
+{{/operation}}
+{{/operations}}

@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+
+from tornado.web import Application
+from tornado.ioloop import IOLoop
+from tornado.options import parse_command_line
+
+sys.path.append(os.path.realpath('../'))
+from framework.route import route
+
+
+import setting
+import model
+import handler
+
+{{#models}}
+{{#model}}
+from handler.{{classVarName}} import {{classname}}Handler
+{{/model}}
+{{/models}}
+
+parse_command_line()
+def run_server():
+
+
+    settings = {
+    }
+
+    routes = route.get_routes()
+{{#models}}
+{{#model}}
+    routes += {{classname}}Handler.get_handlers()
+{{/model}}
+{{/models}}
+
+    application = Application(routes, **settings)
+
+    if hasattr(setting, 'ssl_options'):
+        application.listen(setting.listen_port, setting.listen_host, ssl_options=setting.ssl_options)
+
+    else:
+        application.listen(setting.listen_port, setting.listen_host)
+
+    IOLoop.instance().start()
+
+if __name__ == '__main__':
+    try:
+        print "Start the service"
+        run_server()
+    except KeyboardInterrupt:
+        print "Stop the service"
